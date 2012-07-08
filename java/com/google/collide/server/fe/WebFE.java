@@ -98,21 +98,36 @@ public class WebFE extends BusModBase implements Handler<HttpServerRequest> {
     server.listen(getOptionalIntConfig("port", 8080), getOptionalStringConfig("host", "127.0.0.1"));
   }
 
+  /**
+   * Routes HTTP requests to the Collide web server.
+   */
   @Override
   public void handle(HttpServerRequest req) {
     String path = req.path;
     if (path.equals("/")) {
+
+      // This is a request for the client. Serve it.
       authAndWriteHostPage(req);
     } else if (path.contains("..")) {
+
+      // This is an attempt to escape the directory jail. Deny it.
       sendStatusCode(req, 404);
     } else if (path.startsWith(WEBROOT_PATH) && (webRootPrefix != null)) {
+
+      // This is a request for content in the directory the user started the server in.
       req.response.sendFile(webRootPrefix + path.substring(WEBROOT_PATH.length()));
     } else if (path.startsWith(BUNDLED_STATIC_FILES_PATH) && (bundledStaticFilesPrefix != null)) {
-      req.response.sendFile(bundledStaticFilesPrefix + path.substring(
-          BUNDLED_STATIC_FILES_PATH.length()));
+
+      // This is a request for static content bundled with the client.
+      req.response.sendFile(bundledStaticFilesPrefix
+          + path.substring(BUNDLED_STATIC_FILES_PATH.length()));
     } else if (path.startsWith(AUTH_PATH)) {
+
+      // This is an attempt to install the session cookie.
       writeSessionCookie(req);
     } else {
+
+      // Otherwise, we don't know what you are looking for.
       sendStatusCode(req, HttpStatus.SC_NOT_FOUND);
     }
   }
@@ -198,7 +213,6 @@ public class WebFE extends BusModBase implements Handler<HttpServerRequest> {
             @Override
           public void handle(Message<JsonObject> event) {
             if ("ok".equals(event.body.getString("status"))) {
-              File hostPageBodyFile = new File(bundledStaticFilesPrefix + "HostPage.html.body");
               String activeClientId = event.body.getString("activeClient");
               String username = event.body.getString("username");
               if (activeClientId == null || username == null) {

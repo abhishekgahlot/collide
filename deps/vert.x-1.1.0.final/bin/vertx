@@ -37,7 +37,7 @@ $DIRNAME/../lib/javascript
 DEBUG_CONFIG=
 for i in $@
 do
-  if [ $i == "-debug" ];
+  if [ $i == "--debug" ];
   then
     echo "Launching JVM in Debug Mode"
     DEBUG_CONFIG="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=8001"

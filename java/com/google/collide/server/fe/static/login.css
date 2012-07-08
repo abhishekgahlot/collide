@@ -1,14 +1,75 @@
+#login {
+  position: relative;
+  margin: 0 auto;
+  text-align:center;
+  max-width:690px;
+  font-family: "Georgia", serif;
+  padding:40px;
+  overflow: hidden;
+  height: 60%;
+}
+
 .inputBubble {
+  position: absolute;
+  display: block;
+  -moz-transition: margin 0.3s ease-out, opacity 0.3s ease-out;
+  -webkit-transition: margin 0.3s ease-out, opacity 0.3s ease-out;
+  transition: margin 0.3s ease-out, opacity 0.3s ease-out;
 }
 
 .showing {
-  visibility: visible;
+  opacity: 1;
 }
 
 .toTheLeft {
-  visibility: hidden;
+  opacity: 0;
+  margin-left: -100%;
 }
 
 .toTheRight {
-  visibility: hidden;
+  opacity: 0;
+  margin-left: 150%;
+}
+
+.title {
+  font-size: 28px;
+  font-style:italic;
+  font-weight:100;
+  color:#666;
+  margin-bottom: 20px;  
+  -webkit-transform: rotate(-3deg);
+  -moz-transform: rotate(-3deg);
+}
+
+#username-dialog {
+  width: 40%;
+}
+
+#username-dialog.showing {
+  left: 30%;
+}
+
+#password-dialog {
+  width: 40%;
+}
+
+#password-dialog.showing {
+  left: 30%;
+}
+
+#fail-dialog {
+  width: 70%;
+}
+
+#fail-dialog.showing {
+  left: 15%;
+}
+
+.deniedImage {
+  text-align:center;
+  display: inline-block;
+  width: 110px;
+  height: 110px;
+  background-image: url("angry-vertx.png");
+  margin-bottom: 25px;
 }

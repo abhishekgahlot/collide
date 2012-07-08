@@ -2,9 +2,21 @@
 
 BASE=$(dirname $0)
 WEBROOT=$(pwd)
+
+# Process command line args
+COLLIDE_PASSWORD=
+for i in $@
+do
+  case "$i" in
+    -password=*)
+            COLLIDE_PASSWORD=${i:10};;
+  esac
+done
+
 CONFIG="{
   \"webRoot\": \"$WEBROOT\",
-  \"staticFiles\": \"$BASE/static\"
+  \"staticFiles\": \"$BASE/static\",
+  \"password\": \"$COLLIDE_PASSWORD\"
 }"
 
 # Make a temporary file and stash the config JSON

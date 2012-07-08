@@ -21,9 +21,10 @@ if (!bootstrapConfig || !bootstrapConfig.webRoot || !bootstrapConfig.staticFiles
   console.error("Collide does not know which directory to serve :(!");
 }
 
+var password = bootstrapConfig.password;
 var webFeConfig = {
   port: 8080,
-  host: "0.0.0.0",
+  host: !password || password == "" ? "localhost" : "0.0.0.0",
   bridge: true,
   webRoot: bootstrapConfig.webRoot,
   staticFiles: bootstrapConfig.staticFiles,
@@ -43,7 +44,7 @@ var webFeConfig = {
 
 var participantListConfig = {
   // TODO: Pick this up off the command line when launching collide.
-  // password="s3cret"
+  password: password
 }
 
 var workspaceConfig = {

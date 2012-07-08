@@ -64,16 +64,42 @@ function installAuthCookie(sessionId) {
   xhr.send("sessionID=" + sessionId + "&name=" + username);
 }
 
+function getFirstChild(elem, matcher) {
+  var children = elem.children;
+  for (var i = 0; i < children.length; i++) {
+    if (matcher(children[i])) {
+      return children[i];
+    }
+  }
+}
+
+function handleTransitionEnd(evt) {
+  if (evt.propertyName == "margin") {
+    var target = evt.target;
+    var input = getFirstChild(target, function(child) {
+      return child.tagName.toLowerCase() == "input" &&
+             child.type.toLowerCase() == "text";
+    });
+    if (input) {
+      input.focus();
+    }
+  }
+}
+
 // ELEM TRANSISTONS.
 function transition(elemOutId, elemInId) {
   var elemOut = document.getElementById(elemOutId);
   var elemIn = document.getElementById(elemInId);
+  elemIn.addEventListener("webkitTransitionEnd", handleTransitionEnd, true);
+  elemOut.removeEventListener("webkitTransitionEnd", handleTransitionEnd, true);
+  elemIn.addEventListener("transitionend", handleTransitionEnd, true);
+  elemOut.removeEventListener("transitionend", handleTransitionEnd, true);
   removeClassName(elemOut, "showing");
   addClassName(elemOut, "toTheLeft");
   removeClassName(elemIn, "toTheRight");
   removeClassName(elemIn, "toTheLeft");
   addClassName(elemIn, "showing");
-  showing = elemIn;
+  showing = elemInId;
 }
 Login.transition = transition;
 
@@ -94,5 +120,19 @@ function removeClassName(elem, className) {
   elemClasses = elemClasses.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
   elem.className = elemClasses;
 }
+
+// Trap enter key and make it perform the click action.
+window.addEventListener("keypress", function(evt) {
+  if (evt.which == 13) {
+    var showingDialog = document.getElementById(showing);
+    var button = getFirstChild(showingDialog, function(child) {
+      return child.tagName.toLowerCase() == "input" &&
+             child.type.toLowerCase() == "button";
+    });
+    if (button) {
+      button.onclick();
+    }
+  }
+}, true);
 
 })();
