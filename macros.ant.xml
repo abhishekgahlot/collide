@@ -22,6 +22,10 @@
   </condition>
   <fail message="collide requires Ant 1.8, you have ${ant.version}"
       unless="ant.version.ok"/>
+
+  <condition property="iswindows">
+    <os family="windows"/>
+  </condition>
   
   <!-- Load properties, first from local overrides and then from normal/default
        values.  First set wins. -->

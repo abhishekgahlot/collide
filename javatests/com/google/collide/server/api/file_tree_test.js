@@ -16,7 +16,7 @@ var tests = {
         var dir = reply.baseDirectory;
         assert(dir != null, "dir was null");
         assert(dir.name == "/", "dir.name was " + dir.name);
-        assert(dir.files.length >= 5, "dir.files was " + JSON.stringify(dir.files));
+        assert(dir.files.length >= 4, "dir.files was " + JSON.stringify(dir.files));
         assert(dir.subDirectories.length >= 1, "dir.subDirectories was " + JSON.stringify(dir.subDirectories));
         test.endAsync();
       });
@@ -24,7 +24,7 @@ var tests = {
       eb.send("tree.get", {dto:'{path: "/common"}'}, function(reply) {
         reply = JSON.parse(reply.dto);
         // stdout.println(JSON.stringify(reply, null, '\t'));
-        assert(reply.path == "/common", "reply.path was " + reply.path)
+        assert(reply.path == "/common/", "reply.path was " + reply.path)
         var dir = reply.baseDirectory;
         assert(dir != null, "dir was null");
         assert(dir.name == "common", "dir.name was " + dir.name);
@@ -49,7 +49,7 @@ var tests = {
         // stdout.println(JSON.stringify(reply, null, '\t'));
         assert(reply.path == "/", "reply.path was " + reply.path);
         var dir = reply.baseDirectory;
-        assert(dir.files.length >= 5, "dir.files was " + JSON.stringify(dir.files));
+        assert(dir.files.length >= 4, "dir.files was " + JSON.stringify(dir.files));
         assert(dir.subDirectories.length >= 1, "dir.subDirectories was " + JSON.stringify(dir.subDirectories));
 
         // Now pick some items to try.
@@ -62,7 +62,7 @@ var tests = {
         var expected = [
             '/',
             '/' + items[1].name,
-            '/' + items[2].name,
+            '/' + items[2].name + '/',
             '/' + items[2].name + '/' + items[3].name,
         ];
 

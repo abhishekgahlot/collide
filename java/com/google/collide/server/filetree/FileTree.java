@@ -127,10 +127,8 @@ public class FileTree extends BusModBase {
       if (removed.getNodeType() == TreeNodeInfo.FILE_TYPE) {
         JsonArrayListAdapter<FileInfo> list = (JsonArrayListAdapter<FileInfo>) super.getFiles();
         super.clearFiles();
-        boolean didRemove = false;
         for (FileInfo item : list.asList()) {
           if (item == removed) {
-            didRemove = true;
             break;
           }
           super.addFiles((FileInfoImpl) item);
@@ -139,10 +137,8 @@ public class FileTree extends BusModBase {
         JsonArrayListAdapter<DirInfo> list =
             (JsonArrayListAdapter<DirInfo>) super.getSubDirectories();
         super.clearSubDirectories();
-        boolean didRemove = false;
         for (DirInfo item : list.asList()) {
           if (item == removed) {
-            didRemove = true;
             break;
           }
           super.addSubDirectories((DirInfoImpl) item);
@@ -323,7 +319,7 @@ public class FileTree extends BusModBase {
               for (DirInfo dir : lastDir.getSubDirectories().asIterable()) {
                 if (dir.getName().equals(name)) {
                   response.setBaseDirectory((DirInfoImpl) dir);
-                  response.setPath(path);
+                  response.setPath(path + '/');
                   return;
                 }
               }
@@ -355,7 +351,7 @@ public class FileTree extends BusModBase {
           if (node == null) {
             paths.addString(null);
           } else {
-            paths.addString('/' + node.getPath().toString());
+            paths.addString(pathString(node));
           }
         }
       }
@@ -759,10 +755,13 @@ public class FileTree extends BusModBase {
   }
 
   private String pathString(NodeInfoExt node) {
+    if (node == root) {
+      return "/";
+    }
     if (node.getNodeType() == TreeNodeInfo.FILE_TYPE) {
-      return '/' + node.getPath().toString();
+      return '/' + node.getPath().toString().replace('\\', '/');
     } else {
-      return '/' + node.getPath().toString() + '/';
+      return '/' + node.getPath().toString().replace('\\', '/') + '/';
     }
   }
 
