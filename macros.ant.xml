@@ -13,7 +13,16 @@
   </condition>
   <fail message="vert.x requires Java 1.7, you have ${java.version}"
       unless="java.version.ok"/>
-
+  <condition property="ant.version.ok">
+    <or>
+      <matches string="${ant.version}" pattern="version 1\.[89]\."/>
+      <matches string="${ant.version}" pattern="version 1\.[1-9][0-9]"/>
+      <matches string="${ant.version}" pattern="version [2-9]\."/>
+    </or>
+  </condition>
+  <fail message="collide requires Ant 1.8, you have ${ant.version}"
+      unless="ant.version.ok"/>
+  
   <!-- Load properties, first from local overrides and then from normal/default
        values.  First set wins. -->
   <property file="${dirs.root}/local.properties"/>
@@ -260,6 +269,9 @@
   <!-- Build targets that are totally the same for all sub-projects -->
   <target name="clean" description="Erase all built artifacts">
     <delete dir="${dirs.out}"/>
+    <!-- Recreate generated source directories, to keep Eclipse happy. -->
+    <mkdir dir="${dirs.gen}"/>
+    <mkdir dir="${dirs.testgen}"/>
   </target>
 
 </project>
