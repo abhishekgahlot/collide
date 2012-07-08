@@ -86,13 +86,13 @@
 
   <target name="build" description="Build the whole Collide executable"
       depends="src.shared.build, src.dto.build, src.clientlibs.build,
-         src.client.build, src.server.build, copy.launch">
+               src.client.build, src.server.build, copy.launch">
   </target>
 
   <!-- TODO: enable test.client.test -->
   <target name="test" description="Run all the tests"
       depends="test-compile, test.shared.test, test.json.test, test.dtogen.test,
-	       test.codemirror2.test, test.clientlibs.test, test.api.test"/>
+               test.codemirror2.test, test.clientlibs.test, test.api.test"/>
 
   <target name="test-compile" description="Build all the test code"
       depends="build, test.shared.build, test.api.build, test.json.build,

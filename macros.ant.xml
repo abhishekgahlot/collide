@@ -1,7 +1,7 @@
 <project name="macros">
   <!-- Ensure dirs.root has been set by the actual build.xml file -->
   <fail message="project build.xml must set property dirs.root!"
-	unless="dirs.root"/>
+      unless="dirs.root"/>
 
   <!-- Ensure Vert.x-compatible java version -->
   <condition property="java.version.ok">
@@ -31,8 +31,8 @@
 
   <!-- load ant-contrib from the ant install dir, for <outofdate> -->
   <taskdef classpath="${dirs.lib}/ant-contrib-${libs.antcontrib}/ant-contrib-${libs.antcontrib}.jar"
-	   resource="net/sf/antcontrib/antlib.xml"
-	   onerror="fail"/>
+      resource="net/sf/antcontrib/antlib.xml"
+      onerror="fail"/>
 
 
   <!-- Classpaths for various contexts -->
@@ -79,9 +79,9 @@
   <path id="paths.test">
     <pathelement location="${dirs.bin}"/>
     <pathelement
-      location="${dirs.lib}/junit-${libs.junit}/junit-${libs.junit}.jar"/>
+        location="${dirs.lib}/junit-${libs.junit}/junit-${libs.junit}.jar"/>
     <pathelement
-      location="${dirs.lib}/easymock-${libs.easymock}/easymock-${libs.easymock}.jar"/>
+        location="${dirs.lib}/easymock-${libs.easymock}/easymock-${libs.easymock}.jar"/>
   </path>
 
 
@@ -93,7 +93,8 @@
     <sequential>
       <mkdir dir="@{destdir}"/>
       <javac srcdir="@{srcdir}" destdir="@{destdir}"
-             compiler="${javac.compiler}" debug="${javac.debug}"
+             source="${javac.source}" target="${javac.target}" encoding="utf-8" 
+             debug="${javac.debug}"
              deprecation="${javac.deprecation}"
              includeAntRuntime="false" fork="yes">
         <nested/>
@@ -111,7 +112,7 @@
     <sequential>
       <mkdir dir="${dirs.testrpt}/@{reportdir}"/>
       <junit printsummary="${junit.summaries}" forkmode="${junit.forkmode}"
-	     fork="yes" haltonerror="false" errorproperty="junit.test.error"
+             fork="yes" haltonerror="false" errorproperty="junit.test.error"
              haltonfailure="false" failureproperty="junit.test.failed"
              timeout="${junit.timeout}" logfailedtests="true">
 <!-- is there a way to make this on only if we need it?  Else we get too much
@@ -138,9 +139,9 @@
            and use these "fail" tasks to stop and error out after the test
            batch is done overall. -->
       <fail status="2" if="junit.test.failed"
-	    message="At least one test failed"/>
+        message="At least one test failed"/>
       <fail status="3" if="junit.test.error"
-	    message="At least one test had errors"/>
+        message="At least one test had errors"/>
     </sequential>
   </macrodef>
 
@@ -184,8 +185,8 @@
           <delete dir="@{outdir}"/>
           <mkdir dir="@{outdir}"/>
           <condition property="gwtc.jvmdebug"
-            value=""
-            else="-agentlib:jdwp=transport=dt_socket,server=y,address=@{debugport},suspend=@{debugwait}">
+              value=""
+              else="-agentlib:jdwp=transport=dt_socket,server=y,address=@{debugport},suspend=@{debugwait}">
             <equals arg1="@{debugport}" arg2=""/>
           </condition>
           <java classname="com.google.gwt.dev.Compiler"
@@ -237,13 +238,13 @@
     <element name="libs" optional="true"
          description="library files for GWT compiler classpath"/>
     <sequential>
-    	<condition property="devmode.jvmdebug"
-          value=""
-          else="-agentlib:jdwp=transport=dt_socket,server=y,address=@{debugport},suspend=@{debugwait}">
+        <condition property="devmode.jvmdebug"
+            value=""
+            else="-agentlib:jdwp=transport=dt_socket,server=y,address=@{debugport},suspend=@{debugwait}">
           <equals arg1="@{debugport}" arg2=""/>
-    	</condition>
+        </condition>
       <java classname="com.google.gwt.dev.DevMode"
-              fork="true" failonerror="true">
+            fork="true" failonerror="true">
         <classpath>
           <srcroots/>
           <pathelement location="${dirs.bin}"/>
