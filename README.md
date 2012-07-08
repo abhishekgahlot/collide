@@ -43,3 +43,7 @@ Point a browser at (http://localhost:8080/).
   `[collide directory]/bin/deploy/collide -debug`
   
 Remote attach to port 8001.  An Eclipse launch config is included.
+
+
+## The "source of truth" repo ##
+http://code.google.com/p/collide
