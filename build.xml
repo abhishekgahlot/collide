@@ -74,7 +74,7 @@
   <target name="copy.launch">
     <!-- Copy launch scripts to bin directory. -->
     <copy todir="${dirs.bin}">
-      <fileset dir="${dirs.root}">
+      <fileset dir="${dirs.root}/scripts">
         <include name="bootstrap.js" />
         <include name="collide" />
       </fileset>
