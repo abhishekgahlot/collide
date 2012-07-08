@@ -21,27 +21,27 @@
          modularity, so that the "low-level" subpackages don't compile if they
          accidentally reach higher-level subpackage code. -->
     <do.javac srcdir="${dirs.src}" destdir="${dirs.bin}">
-      <include name="${dirs.toppkg}/mvp/*.java"/>
+      <include name="${dirs.toppkg}/mvp/**/*.java"/>
       <classpath refid="paths.client.build"/>
     </do.javac>
     <do.javac srcdir="${dirs.src}" destdir="${dirs.bin}">
-      <include name="${dirs.toppkg}/client/bootstrap/*.java"/>
+      <include name="${dirs.toppkg}/client/bootstrap/**/*.java"/>
       <classpath refid="paths.client.build"/>
     </do.javac>
     <do.javac srcdir="${dirs.src}" destdir="${dirs.bin}">
-      <include name="${dirs.toppkg}/client/util/*.java"/>
+      <include name="${dirs.toppkg}/client/util/**/*.java"/>
       <classpath refid="paths.client.build"/>
     </do.javac>
     <do.javac srcdir="${dirs.src}" destdir="${dirs.bin}">
-      <include name="${dirs.toppkg}/client/testing/*.java"/>
+      <include name="${dirs.toppkg}/client/testing/**/*.java"/>
       <classpath refid="paths.client.build"/>
     </do.javac>
     <do.javac srcdir="${dirs.src}" destdir="${dirs.bin}">
-      <include name="${dirs.toppkg}/client/status/*.java"/>
+      <include name="${dirs.toppkg}/client/status/**/*.java"/>
       <classpath refid="paths.client.build"/>
     </do.javac>
     <do.javac srcdir="${dirs.src}" destdir="${dirs.bin}">
-      <include name="${dirs.toppkg}/client/communication/*.java"/>
+      <include name="${dirs.toppkg}/client/communication/**/*.java"/>
       <classpath refid="paths.client.build"/>
     </do.javac>
     <do.javac srcdir="${dirs.src}" destdir="${dirs.bin}">

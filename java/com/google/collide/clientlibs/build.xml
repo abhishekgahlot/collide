@@ -6,7 +6,7 @@
   <target name="build" depends="">
     <do.javac srcdir="${dirs.src}" destdir="${dirs.bin}">
       <include name="${dirs.toppkg}/clientlibs/**/*.java"/>
-      <classpath refid="paths.clientlibs"/>
+      <classpath refid="paths.client.build"/>
     </do.javac>
   </target>
 </project>

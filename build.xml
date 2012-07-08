@@ -30,12 +30,11 @@
   <include optional="false" as="test.dtogen"
      file="${dirs.test}/${dirs.toppkg}/dtogen/build.xml"/>
   <include optional="false" as="test.codemirror2"
-     file="${dirs.test}/${dirs.toppkg}/codemirror2/build.xml"/>
-  <include optional="false" as="test.client"
-     file="${dirs.test}/${dirs.toppkg}/client/build.xml"/>
+     file="${dirs.test}/${dirs.toppkg}/codemirror2/build.xml"/>  
   <include optional="false" as="test.clientlibs"
      file="${dirs.test}/${dirs.toppkg}/clientlibs/build.xml"/>
-
+  <include optional="false" as="test.client"
+     file="${dirs.test}/${dirs.toppkg}/client/build.xml"/>
 
   <target name="dist" description="Package up the distribution"
           depends="build">
@@ -86,8 +85,8 @@
   </target>
 
   <target name="build" description="Build the whole Collide executable"
-      depends="src.shared.build, src.dto.build, src.client.build,
-	       src.server.build, copy.launch">
+      depends="src.shared.build, src.dto.build, src.clientlibs.build,
+         src.client.build, src.server.build, copy.launch">
   </target>
 
   <!-- TODO: enable test.client.test -->
@@ -96,9 +95,9 @@
 	       test.codemirror2.test, test.clientlibs.test, test.api.test"/>
 
   <target name="test-compile" description="Build all the test code"
-      depends="test.shared.build, test.api.build, test.json.build,
-               test.dtogen.build, test.codemirror2.build, test.client.build,
-	       test.clientlibs.build">
+      depends="build, test.shared.build, test.api.build, test.json.build,
+               test.dtogen.build, test.codemirror2.build, test.clientlibs.build,
+               test.client.build">
     <!-- Copy all deps to the ${dirs.testbin}/lib folder -->
     <copy todir="${dirs.testbin}/lib" flatten="true">
       <path refid="paths.server.build" />
