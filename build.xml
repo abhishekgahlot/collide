@@ -42,7 +42,7 @@
     <copy todir="${dirs.dist}">
       <fileset dir="${dirs.bin}">
         <include name="bootstrap.js" />
-        <include name="collide" />
+        <include name="collide*" />
       </fileset>
     </copy>
 
@@ -52,7 +52,7 @@
     </copy>
 
     <!-- To preserve executable file permissions on launcher script. -->
-    <chmod dir="${dirs.dist}" perm="ugo+rx"  includes="collide"/>
+    <chmod dir="${dirs.dist}" perm="ugo+rx"  includes="collide*"/>
 
     <!-- Create a server jar from all the classes and drop it in the dist/lib folder. -->
     <jar destfile="${dirs.dist}/lib/collide-server.jar"
@@ -76,12 +76,12 @@
     <copy todir="${dirs.bin}">
       <fileset dir="${dirs.root}/scripts">
         <include name="bootstrap.js" />
-        <include name="collide" />
+        <include name="collide*" />
       </fileset>
     </copy>
 
     <!-- To preserve executable file permissions on launcher script. -->
-    <chmod dir="${dirs.bin}" perm="ugo+rx"  includes="collide"/>
+    <chmod dir="${dirs.bin}" perm="ugo+rx"  includes="collide*"/>
   </target>
 
   <target name="build" description="Build the whole Collide executable"

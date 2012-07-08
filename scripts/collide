@@ -28,3 +28,5 @@ COLLIDE_CLASSPATH=$BASE:$BASE/lib/gwt-user.jar:$BASE/lib/collide-server.jar:$BAS
 
 # Launch the server, setting up the appropriate classpath and config files.
 ${BASE}/lib/vertx/bin/vertx run bootstrap.js -conf $TMP_FILE -cp $COLLIDE_CLASSPATH "$@"
+
+rm $TMP_FILE
