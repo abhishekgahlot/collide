@@ -10,7 +10,7 @@
           depends="">
     <!-- Clean up the destination so we know exactly what's there.
          Otherwise, prior test runs might leave junk. -->
-    <delete includeemptydirs="true">
+    <delete includeemptydirs="true" failonerror="false">
       <fileset dir="${api_tests.out}" includes="**/*"/>
     </delete>
     <copy todir="${api_tests.out}">
