@@ -48,7 +48,7 @@
           <arg value="--dto_jar=${dirs.testbin}/${dirs.toppkg}/client/testing/dto/client-testdtos.jar"/>
           <arg value="--gen_file_name=${dirs.testgen}/${dirs.toppkg}/client/testing/CollideDtoClientTestingImpls.java"/>
           <arg value="--impl=client"/>
-          <arg value="--package_base=gen/"/>
+          <arg value="--package_base=${dirs.testgen}/"/>
         </java>
         <do.javac srcdir="${dirs.testgen}" destdir="${dirs.testbin}">
           <include name="${dirs.toppkg}/client/**/*.java"/>

@@ -46,10 +46,10 @@
             <pathelement location="${dirs.bin}"/>
             <path refid="paths.shared"/>
           </classpath>
-	        <arg value="--dto_jar=${dirs.bin}/${dirs.toppkg}/dto/dto-interfaces.jar"/>
+          <arg value="--dto_jar=${dirs.bin}/${dirs.toppkg}/dto/dto-interfaces.jar"/>
           <arg value="--gen_file_name=${dirs.gen}/${dirs.toppkg}/dto/client/DtoClientImpls.java"/>
           <arg value="--impl=client"/>
-          <arg value="--package_base=gen/"/>
+          <arg value="--package_base=${dirs.gen}/"/>
         </java>
         <do.javac srcdir="${dirs.gen}" destdir="${dirs.bin}">
           <include name="${dirs.toppkg}/dto/client/**/*.java"/>
@@ -85,9 +85,9 @@
             <path refid="paths.shared"/>
           </classpath>
           <arg value="--dto_jar=${dirs.bin}/${dirs.toppkg}/dto/dto-interfaces.jar"/>
-	  <arg value="--gen_file_name=${dirs.gen}/${dirs.toppkg}/dto/server/DtoServerImpls.java"/>
+          <arg value="--gen_file_name=${dirs.gen}/${dirs.toppkg}/dto/server/DtoServerImpls.java"/>
           <arg value="--impl=server"/>
-          <arg value="--package_base=gen/"/>
+          <arg value="--package_base=${dirs.gen}/"/>
         </java>
         <do.javac srcdir="${dirs.gen}" destdir="${dirs.bin}">
           <include name="${dirs.toppkg}/dto/server/**/*.java"/>

@@ -48,7 +48,7 @@
           <arg value="--dto_jar=${dirs.testbin}/${dirs.toppkg}/dtogen/dtogen-testdtos.jar"/>
           <arg value="--gen_file_name=${dirs.testgen}/${dirs.toppkg}/dtogen/server/TestDtoServerImpls.java"/>
           <arg value="--impl=server"/>
-          <arg value="--package_base=gen/"/>
+          <arg value="--package_base=${dirs.testgen}/"/>
         </java>
         <mkdir dir="${dirs.testgen}/${dirs.toppkg}/dtogen/client"/>
         <java classname="${pkg.toppkg}.dtogen.DtoGenerator" fork="true"
@@ -60,7 +60,7 @@
           <arg value="--dto_jar=${dirs.testbin}/${dirs.toppkg}/dtogen/dtogen-testdtos.jar"/>
           <arg value="--gen_file_name=${dirs.testgen}/${dirs.toppkg}/dtogen/client/TestDtoClientImpls.java"/>
           <arg value="--impl=client"/>
-          <arg value="--package_base=gen/"/>
+          <arg value="--package_base=${dirs.testgen}/"/>
         </java>
         <do.javac srcdir="${dirs.testgen}" destdir="${dirs.testbin}">
           <include name="${dirs.toppkg}/dtogen/**/*.java"/>
