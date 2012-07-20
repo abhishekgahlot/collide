@@ -38,8 +38,12 @@ public class Cookie {
 
     for (int i = 0; i < cookieStrArr.length; i++) {
       String cookie = cookieStrArr[i].trim();
-      String[] cookieTup = cookie.split("=");
-      cookieArr[i] = new Cookie(cookieTup[0], cookieTup[1]);
+      String[] cookieTup = cookie.split("=", 2);
+      if (cookieTup.length == 1) {
+        cookieArr[i] = new Cookie(cookieTup[0], null);
+      } else {
+        cookieArr[i] = new Cookie(cookieTup[0], cookieTup[1]);
+      }
     }
 
     return cookieArr;
