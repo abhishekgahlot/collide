@@ -23,6 +23,15 @@ From any folder, run:
     `[collide directory]/bin/deploy/collide`
 
 Point a browser at (http://localhost:8080/).
+By default Collide will only accept local connections. To accept remote
+connection you must specify a password.
+
+
+## Flags ##
+
+-password=<string>    Specify a password to access the web UI.
+-debug                Enable JVM debugging. See "Debug the server" section
+                      below.
 
 
 ## Hints for USING COLLIDE ##
@@ -43,6 +52,14 @@ Point a browser at (http://localhost:8080/).
   `[collide directory]/bin/deploy/collide -debug`
   
 Remote attach to port 8001.  An Eclipse launch config is included.
+
+
+## Contributing ##
+
+* Create a personal clone of the main repository if you don't have one already
+  (http://code.google.com/p/collide/source/clones)
+* Push a change into your clone
+* E-mail a link to your change to collide-project@googlegroups.com
 
 
 ## The "source of truth" repo ##
