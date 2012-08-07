@@ -29,9 +29,10 @@ connection you must specify a password.
 
 ## Flags ##
 
--password=<string>    Specify a password to access the web UI.
--debug                Enable JVM debugging. See "Debug the server" section
-                      below.
+-password=<string>    Specify a password to access the web UI (enables remote
+	                  connections)
+--debug               Enable JVM debugging on port 8001. An Eclipse launch
+                      config is included.
 
 
 ## Hints for USING COLLIDE ##
@@ -47,19 +48,9 @@ connection you must specify a password.
 * Import the existing Eclipse project in the root directory.
 * Java 7 must be your default JRE.
 
-## Debug the server ##
-
-  `[collide directory]/bin/deploy/collide -debug`
-  
-Remote attach to port 8001.  An Eclipse launch config is included.
-
 
 ## Contributing ##
-
-* Create a personal clone of the main repository if you don't have one already
-  (http://code.google.com/p/collide/source/clones)
-* Push a change into your clone
-* E-mail a link to your change to collide-project@googlegroups.com
+http://code.google.com/p/collide/wiki/SubmittingChanges
 
 
 ## The "source of truth" repo ##
