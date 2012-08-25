@@ -6,7 +6,7 @@
   "permissions": [
     "tabs",
     "debugger",
-    "*://*/*",
+    "*://*/*"
   ],
   "minimum_chrome_version": "18",
 
