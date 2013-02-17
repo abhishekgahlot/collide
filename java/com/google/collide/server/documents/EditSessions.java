@@ -114,6 +114,11 @@ public class EditSessions extends BusModBase {
         VersionedDocument.ConsumeResult result =
             editSession.consume(docOps, authorId, ccRevision, selection);
 
+        if (result == null) {
+          // It means consume ignored this docOp.
+          return null;
+        }
+        
         // See if we need to update the selection
         checkForSelectionChange(
             authorId, resourceId, editSession.getDocument(), result.transformedDocumentSelection);
