@@ -108,6 +108,8 @@ public class Tree<D> extends UiComponent<Tree.View<D>> {
     String treeNodeLabel();
 
     String treeRoot();
+
+    String treeNodeLabelLoading();
   }
 
   /**

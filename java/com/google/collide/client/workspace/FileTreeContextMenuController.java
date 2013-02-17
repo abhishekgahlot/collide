@@ -579,8 +579,11 @@ public class FileTreeContextMenuController {
           // if we were showing a tooltip related to the rename, hide it now
           invalidNameTooltip.destroy();
           invalidNameTooltip = null;
-        }
+        }        
 
+        // TODO(jaime): Better loading affordance.
+        node.addClassName(fileTreeUiController.getTree().getResources().treeCss().treeNodeLabelLoading());
+        
         WorkspaceTreeUpdate msg = fileTreeModel.makeEmptyTreeUpdate();
         msg.getMutations().add(FileTreeUtils.makeMutation(Mutation.Type.ADD, null,
             installedNode.getNodePath(), installedNode.isDirectory(), null));
@@ -612,7 +615,9 @@ public class FileTreeContextMenuController {
                 // parent directory so that we can get sort order.
                 fileTreeUiController.reRenderSubTree(node.getData().getParent());
 
-                fileTreeUiController.autoExpandAndSelectNode(node.getData(), true);     
+                fileTreeUiController.autoExpandAndSelectNode(node.getData(), true);
+                
+                node.removeClassName(fileTreeUiController.getTree().getResources().treeCss().treeNodeLabelLoading());
               }
             });
       }

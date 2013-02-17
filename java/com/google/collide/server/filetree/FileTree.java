@@ -169,7 +169,8 @@ public class FileTree extends BusModBase {
    * Receives and applies file tree mutations. Is responsible for subsequently broadcasting the
    * mutation to collaborators after successful application of the mutation.
    */
-  class FileTreeMutationHandler implements Handler<Message<JsonObject>> {
+  class FileTreeMutationHandler implements Handler<Message<JsonObject>> {    
+    
     @Override
     public void handle(Message<JsonObject> message) {
       WorkspaceTreeUpdate update = WorkspaceTreeUpdateImpl.fromJsonString(Dto.get(message));
@@ -271,8 +272,10 @@ public class FileTree extends BusModBase {
             }
           }
 
-          EmptyMessageImpl response = EmptyMessageImpl.make();
-          message.reply(Dto.wrap(response));
+          // We need to wait until the watch service detects the change on disk and trust that it
+          // will flush these ACKs. Just queue the message for now.
+          pendingMutationAcks.add(message);
+          
           // The file listener will broadcast the applied mutations to all clients.
         } catch (Exception exc) {
           exc.printStackTrace(System.out);
@@ -519,6 +522,9 @@ public class FileTree extends BusModBase {
   /** A map of watch keys to directories. */
   final Map<WatchKey, DirInfoExt> watchkeyToDir = new HashMap<WatchKey, DirInfoExt>();
 
+  /** Pending tree mutation ACKs that we flush when the watcher picks up the mutation. */
+  final List<Message<JsonObject>> pendingMutationAcks = new ArrayList<Message<JsonObject>>();
+  
   Thread watcherThread = null;
 
   @Override
@@ -569,7 +575,17 @@ public class FileTree extends BusModBase {
     watcherThread.join();
     super.stop();
   }
-
+  
+  void drainPendingTreeMutationAcks() {
+    synchronized (this.lock) {
+      for (Message<JsonObject> message : this.pendingMutationAcks) {
+        EmptyMessageImpl response = EmptyMessageImpl.make();
+        message.reply(Dto.wrap(response));
+      }
+      this.pendingMutationAcks.clear();
+    }
+  }
+  
   void processAllWatchEvents(WatchKey key) {
     List<NodeInfoExt> adds = new ArrayList<NodeInfoExt>();
     List<NodeInfoExt> removes = new ArrayList<NodeInfoExt>();
@@ -675,6 +691,9 @@ public class FileTree extends BusModBase {
           }
         }
       }
+      
+      this.drainPendingTreeMutationAcks();
+      
       // TODO: post-process deletes so that child deletes are subsumed by parent deletes.
     }
 

@@ -31,6 +31,10 @@
   margin-bottom: 0;
 }
 
+.treeNodeLabelLoading {
+  opacity: 0.65;
+}
+
 .treeNodeBody {
   height: itemHeight;
   min-width: 100%;
